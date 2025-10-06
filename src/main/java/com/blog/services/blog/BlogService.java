@@ -41,11 +41,7 @@ public class BlogService implements IBlogService{
 
         // Check the category is exists or not, if exist then assign it otherwise create a new category
         Category category = categoryRepository.findByNameIgnoreCase(dto.getCategory())
-                .orElseGet(() -> {
-                    Category newCategory = new Category();
-                    newCategory.setName(dto.getCategory());
-                    return categoryRepository.save(newCategory);
-                });
+                .orElseThrow(() -> new ResourceNotFoundException("Category", "name", dto.getCategory()));
 
 
         // Upload the blog's image to the cloudinary
