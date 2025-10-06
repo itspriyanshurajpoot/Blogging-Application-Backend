@@ -112,4 +112,16 @@ public class BlogController {
                 .data(blogService.getAllBlogByCategory(categoryName, offset, pageSize))
                 .build());
     }
+
+    // Search Blogs by Title and Content
+    @GetMapping("/public/search")
+    public ResponseEntity<SuccessResponse> searchBlogs(@RequestParam String query,
+                                                       @RequestParam(defaultValue = "0") int offset,
+                                                       @RequestParam(defaultValue = "6") int pageSize) {
+        return ResponseEntity.ok(SuccessResponse.builder()
+                .message("Blogs fetched successfully")
+                .success(true)
+                .data(blogService.searchBlogs(query, offset, pageSize))
+                .build());
+    }
 }

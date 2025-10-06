@@ -77,7 +77,7 @@ public class BlogService implements IBlogService{
 
         User user = userRepository.findByEmailIgnoreCase(principal.getName());
 
-        if(!user.getId().equals(blog.getUser().getId()) || !user.getRole().toString().equalsIgnoreCase("ADMIN")){
+        if(!user.getId().equals(blog.getUser().getId()) && !user.getRole().toString().equalsIgnoreCase("ADMIN")){
             throw new RuntimeException("Unauthorised");
         }
 
@@ -163,4 +163,11 @@ public class BlogService implements IBlogService{
                 .map(BlogMapper::toDTO)
                 .toList();
     }
+
+    @Override
+    public PaginatedBlogResponseDTO searchBlogs(String query, int offset, int pageSize) {
+        return BlogMapper.toPaginatedDTO(blogRepository.findByTitleContainingIgnoreCaseOrContentContainingIgnoreCase(query, query, PageRequest.of(offset, pageSize)));
+    }
+
+
 }

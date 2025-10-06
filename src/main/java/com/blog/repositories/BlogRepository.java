@@ -12,4 +12,7 @@ import java.util.List;
 public interface BlogRepository extends JpaRepository<Blog, String> {
     List<Blog> findByUser(User user);
     Page<Blog> findByCategory(Category category, Pageable pageable);
+
+    // Search blog by title or content in a paginated way
+    Page<Blog> findByTitleContainingIgnoreCaseOrContentContainingIgnoreCase(String title, String content, Pageable pageable);
 }

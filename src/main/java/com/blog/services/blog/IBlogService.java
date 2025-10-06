@@ -24,4 +24,6 @@ public interface IBlogService {
     List<BlogResponseDTO> getAllBlogByUser(Principal principal);
 
     List<BlogResponseDTO> getAllBlogByUserId(String userId);
+
+    PaginatedBlogResponseDTO searchBlogs(String query, int offset, int pageSize);
 }
