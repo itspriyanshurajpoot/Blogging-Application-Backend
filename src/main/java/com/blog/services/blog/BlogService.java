@@ -95,7 +95,7 @@ public class BlogService implements IBlogService{
             throw new ResourceNotFoundException("User", "email", principal.getName());
         }
 
-        if(user.getId().equals(blog.getUser().getId())){
+        if(!user.getId().equals(blog.getUser().getId())){
             throw new RuntimeException("Unauthorised");
         }
 
